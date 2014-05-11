@@ -1,9 +1,11 @@
-plot1 <- function() {
-     gap <- loadData()
+plot2 <- function() {
+     globalAP <- loadData()
+     dateTimeVals <- paste(globalAP$Date, globalAP$Time, sep=" ")
+     dateTimeVals <- strptime(dateTimeVals, format="%Y-%m-%d %H:%M:%S")
      
-     png(file="./plot1.png")
-     hist(gap$Global_active_power, main="Global Active Power", 
-          xlab="Global Active Power (kilowatts)", col="red")
+     png(file="./plot2.png")
+     plot (dateTimeVals, globalAP$Global_active_power, type="l", xlab="",
+           ylab="Global Active Power (kilowatts)")
      dev.off()
 }
 
@@ -45,7 +47,7 @@ loadData <- function() {
      ## Convert Date and Time column from character to POSIXlt class
      # data$DateTime <- strptime(data$DateTime, "%d/%m/%Y %H:%M:%S")
      
-
+     
      
      ## Convert Date column from character to Date class
      data$Date <- as.Date(data$Date, format="%d/%m/%Y")

@@ -1,9 +1,19 @@
+plot1 <- function() {
+     gap <- loadData()
+     
+     png(file="./plot1.png")
+     hist(gap$Global_active_power, main="Global Active Power", 
+          xlab="Global Active Power (kilowatts)", col="red")
+     dev.off()
+}
+
+
 loadData <- function() {
-     ## 1) Load and format the data set, downloading the source if necessary
+     ## Load and format the data set, downloading the source if necessary
      
      ## Source data file is assumed to be ./data/ehpc.txt. If it does not 
      ## exist, download and/or extract it
-     if (!file.exists("./data/ehpc.txt")) {
+     if (!file.exists("./data/household_power_consumption.txt")) {
           
           ## If the zip file does not exist, download it
           if (!file.exists("./data/ehpc.zip")) {
@@ -35,6 +45,8 @@ loadData <- function() {
      ## Convert Date and Time column from character to POSIXlt class
      # data$DateTime <- strptime(data$DateTime, "%d/%m/%Y %H:%M:%S")
      
+
+     
      ## Convert Date column from character to Date class
      data$Date <- as.Date(data$Date, format="%d/%m/%y")
      
@@ -48,13 +60,4 @@ loadData <- function() {
      data$Sub_metering_3 <- as.numeric(data$Sub_metering_3)
      
      return(data)
-}
-
-plot1 <- function() {
-     gap <- loadData()
-     
-     png(file="./plot1.png")
-     hist(gap$Global_active_power, main="Global Active Power", 
-          xlab="Global Active Power (kilowatts)", col="red")
-     dev.off()
 }
